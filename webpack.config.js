@@ -30,7 +30,12 @@ const commonConfig = merge([
       })
     ]
   },
-  parts.loadJS()
+  parts.loadJS(),
+  {
+    resolve: {
+      extensions: ["*", ".js", ".json", ".jsx"]
+    }
+  }
 ]);
 const productionConfig = merge([]);
 const developmentConfig = merge([commonConfig]);
