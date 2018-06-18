@@ -37,15 +37,21 @@ const commonConfig = merge([
     }
   }
 ]);
-const productionConfig = merge([]);
-const developmentConfig = merge([commonConfig]);
 
-module.exports = mode => {
-  if (mode === "production") {
-    return merge([commonConfig, productionConfig]);
+const productionConfig = merge([]);
+
+const developmentConfig = merge([
+  parts.devServer({ host: process.env.HOST, port: process.env.PORT })
+]);
+
+module.exports = (env, argv) => {
+  process.env.BABEL_ENV = env;
+
+  if (env === "production") {
+    return merge([commonConfig, productionConfig, { mode: env }]);
   }
 
-  if (mode === "development") {
-    return merge([commonConfig, developmentConfig]);
+  if (env === "development") {
+    return merge([commonConfig, developmentConfig, { mode: env }]);
   }
 };
