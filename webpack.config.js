@@ -44,6 +44,7 @@ const productionConfig = merge([]);
 
 const developmentConfig = merge([
   parts.devServer({ host: process.env.HOST, port: process.env.PORT }),
+  parts.loadCSS(),
   parts.generateSourceMaps({ type: "inline-source-map" })
 ]);
 

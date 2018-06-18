@@ -24,3 +24,52 @@ exports.loadJS = ({ include, exclude } = {}) => ({
     ]
   }
 });
+
+exports.loadCSS = ({ include, exclude } = {}) => {
+  const loaders = (options = { "css-loader": { modules: false } }) => [
+    { loader: "style-loader" },
+    {
+      loader: "css-loader",
+      options: { sourceMap: true, ...options["css-loader"] }
+    }
+  ];
+
+  return {
+    module: {
+      rules: [
+        // regular css
+        {
+          test: /\.css$/,
+          include,
+          exclude: [/\.module\./],
+          use: loaders()
+        },
+        {
+          test: /\.s(a|c)ss$/,
+          include,
+          exclude: /\.module\./,
+          use: loaders().concat({
+            loader: "sass-loader",
+            options: { sourceMap: true }
+          })
+        },
+        // css-modules
+        {
+          test: /\.module\.css$/,
+          include,
+          exclude,
+          use: loaders({ "css-loader": { modules: true } })
+        },
+        {
+          test: /\.module\.s(a|c)ss$/,
+          include,
+          exclude,
+          use: loaders({ "css-loader": { modules: true } }).concat({
+            loader: "sass-loader",
+            options: { sourceMap: true }
+          })
+        }
+      ]
+    }
+  };
+};
