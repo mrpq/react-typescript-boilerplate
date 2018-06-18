@@ -4,6 +4,7 @@ const path = require("path");
 const parts = require("./webpack.parts.js");
 
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const ErrorOverlayPlugin = require("error-overlay-webpack-plugin");
 
 const PATHS = {
   root: path.resolve(__dirname),
@@ -27,7 +28,8 @@ const commonConfig = merge([
         // Optional - https://github.com/jaketrent/html-webpack-template
         // много дополнительных полей для темплейта генерируемого index.html
         appMountId: "root"
-      })
+      }),
+      new ErrorOverlayPlugin()
     ]
   },
   parts.loadJS(),
@@ -41,7 +43,8 @@ const commonConfig = merge([
 const productionConfig = merge([]);
 
 const developmentConfig = merge([
-  parts.devServer({ host: process.env.HOST, port: process.env.PORT })
+  parts.devServer({ host: process.env.HOST, port: process.env.PORT }),
+  parts.generateSourceMaps({ type: "inline-source-map" })
 ]);
 
 module.exports = (env, argv) => {
