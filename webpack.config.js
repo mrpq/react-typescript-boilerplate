@@ -1,6 +1,8 @@
 const merge = require("webpack-merge");
 const path = require("path");
 
+const parts = require("./webpack.parts.js");
+
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 const PATHS = {
@@ -27,12 +29,13 @@ const commonConfig = merge([
         appMountId: "root"
       })
     ]
-  }
+  },
+  parts.loadJS()
 ]);
 const productionConfig = merge([]);
 const developmentConfig = merge([commonConfig]);
 
-module.exports = (mode) => {
+module.exports = mode => {
   if (mode === "production") {
     return merge([commonConfig, productionConfig]);
   }
