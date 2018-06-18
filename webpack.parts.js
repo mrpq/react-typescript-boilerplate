@@ -25,6 +25,15 @@ exports.loadJS = ({ include, exclude } = {}) => ({
   }
 });
 
+const autoprefix = () => ({
+  loader: "postcss-loader",
+  options: {
+    plugins: [require("autoprefixer")]
+  }
+});
+
+exports.autoprefix = autoprefix;
+
 exports.loadCSS = ({ include, exclude } = {}) => {
   const loaders = (options = { "css-loader": { modules: false } }) => [
     { loader: "style-loader" },
