@@ -17,7 +17,16 @@ const commonConfig = merge([
     }
   },
   {
-    plugins: [new HtmlWebpackPlugin()]
+    plugins: [
+      new HtmlWebpackPlugin({
+        // Required
+        inject: false,
+        template: require("html-webpack-template"),
+        // Optional - https://github.com/jaketrent/html-webpack-template
+        // много дополнительных полей для темплейта генерируемого index.html
+        appMountId: "root"
+      })
+    ]
   }
 ]);
 const productionConfig = merge([]);
