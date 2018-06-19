@@ -50,31 +50,53 @@ exports.loadCSS = ({ include, exclude } = {}) => {
         {
           test: /\.css$/,
           include,
-          exclude: [/\.module\./],
+          exclude: exclude ? [/\.module\./].concat(exclude) : /\.module\./,
           use: loaders()
         },
+        // regular sass
         {
           test: /\.s(a|c)ss$/,
           include,
-          exclude: /\.module\./,
+          exclude: exclude ? [/\.module\./].concat(exclude) : /\.module\./,
           use: loaders().concat({
             loader: "sass-loader",
             options: { sourceMap: true }
           })
         },
-        // css-modules
+        // regular stylus
+        {
+          test: /\.styl$/,
+          include,
+          exclude: exclude ? [/\.module\./].concat(exclude) : /\.module\./,
+          use: loaders().concat({
+            loader: "stylus-loader",
+            options: { sourceMap: true }
+          })
+        },
+        // css-modules css
         {
           test: /\.module\.css$/,
           include,
           exclude,
           use: loaders({ "css-loader": { modules: true } })
         },
+        // css-modules sass
         {
           test: /\.module\.s(a|c)ss$/,
           include,
           exclude,
           use: loaders({ "css-loader": { modules: true } }).concat({
             loader: "sass-loader",
+            options: { sourceMap: true }
+          })
+        },
+        // css-modules stylus
+        {
+          test: /\.module\.styl$/,
+          include,
+          exclude,
+          use: loaders({ "css-loader": { modules: true } }).concat({
+            loader: "stylus-loader",
             options: { sourceMap: true }
           })
         }
