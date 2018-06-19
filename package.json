@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --watch webpack.config.js --exec \"webpack-dev-server --hot --env development\"",
+    "start": "nodemon --watch webpack.config.js --watch webpack.parts.js --exec \"webpack-dev-server --hot --env development\"",
     "build": "webpack --env production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
