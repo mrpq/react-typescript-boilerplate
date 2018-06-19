@@ -104,3 +104,21 @@ exports.loadCSS = ({ include, exclude } = {}) => {
     }
   };
 };
+
+exports.loadImg = ({ include, exclude, options } = {}) => {
+  return {
+    module: {
+      rules: [
+        {
+          test: /\.(jpg|png|gif|webp)$/,
+          include,
+          exclude,
+          use: {
+            loader: "url-loader",
+            options
+          }
+        }
+      ]
+    }
+  };
+};
