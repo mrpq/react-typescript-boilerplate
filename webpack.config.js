@@ -32,7 +32,6 @@ const commonConfig = merge([
       new ErrorOverlayPlugin()
     ]
   },
-  parts.loadJS(),
   {
     resolve: {
       extensions: ["*", ".js", ".json", ".jsx"]
@@ -50,9 +49,11 @@ const productionConfig = merge([
 ]);
 
 const developmentConfig = merge([
+  parts.loadJS(),
   parts.devServer({ host: process.env.HOST, port: process.env.PORT }),
   parts.loadCSS(),
-  parts.generateSourceMaps({ type: "inline-source-map" })
+  parts.generateSourceMaps({ type: "inline-source-map" }),
+  parts.loadImg()
 ]);
 
 module.exports = (env, argv) => {
