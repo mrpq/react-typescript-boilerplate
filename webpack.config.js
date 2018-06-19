@@ -40,7 +40,14 @@ const commonConfig = merge([
   }
 ]);
 
-const productionConfig = merge([]);
+const productionConfig = merge([
+  parts.loadJS({ exclude: [/node_modules/] }),
+  parts.loadCSS(),
+  parts.generateSourceMaps({ type: "source-map" }),
+  parts.loadImg({
+    options: { limit: 15, name: "./static/img/[name].[hash:4].[ext]" }
+  })
+]);
 
 const developmentConfig = merge([
   parts.devServer({ host: process.env.HOST, port: process.env.PORT }),
