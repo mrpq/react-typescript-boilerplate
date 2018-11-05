@@ -1,10 +1,15 @@
 {
-  "overrides": [
-    {
-      "files": [".babelrc"],
-      "options": {
-        "parser": "json"
-      }
-    }
-  ]
+    "printWidth": 80,
+    "singleQuote": true,
+    "trailingComma": "es5",
+    "arrowParens": "always",
+    "tabWidth": 4,
+    "overrides": [
+        {
+            "files": [".babelrc"],
+            "options": {
+                "parser": "json"
+            }
+        }
+    ]
 }
